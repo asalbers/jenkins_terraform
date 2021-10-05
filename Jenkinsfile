@@ -17,7 +17,13 @@ pipeline {
 
         }
         stage('terraform plan') {
-
+            steps{
+                echo 'validating'
+                sh (
+                    returnStdout: true,
+                    script: "terraform plan"
+                )
+            }
         }
     }
 }
