@@ -5,11 +5,13 @@ pipeline {
             checkout scm
         }
         stage('terraform validate') {
-            echo 'validating'
-            sh(
-                returnStdout: true,
-                script: "terraform validate"
-            )
+            steps{
+                echo 'validating'
+                sh (
+                    returnStdout: true,
+                    script: "terraform validate"
+                )
+            }
 
         }
         stage('terraform plan') {
