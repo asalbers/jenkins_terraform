@@ -6,6 +6,13 @@ pipeline {
                 checkout scm
             }
         }
+        stage('az login'){
+            steps{
+                withCredentials([azureServicePrincipal('azure_id')]) {
+                    sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                }
+            }
+        }
         stage('terraform init') {
             steps{
                 echo 'validating'
