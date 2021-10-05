@@ -6,14 +6,12 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('az login'){
-        //     steps{
-        //         withCredentials([azureServicePrincipal('azure_id')]) {
-        //             sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
-        //             sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
-        //         }
-        //     }
-        // }
+        stage('terraform format checking'){
+            steps{
+                echo ''
+                sh ('terraform fmt -check')
+            }
+        }
         stage('terraform init') {
             steps{
                 echo 'validating'
@@ -44,8 +42,6 @@ pipeline {
                         export ARM_TENANT_ID=$AZURE_TENANT_ID
                         terraform plan
                     '''
-                    // echo 'validating'
-                    // sh ('terraform plan')
                 }
             }
         }

@@ -4,8 +4,8 @@ variable "administrator_login" {
 }
 
 variable "administrator_login_password" {
-    description = "administrator password for the Postgres database"
-    default     = "Don0ts3tth1sh3r3!"
+  description = "administrator password for the Postgres database"
+  default     = "Don0ts3tth1sh3r3!"
 }
 
 variable "location" {
@@ -52,7 +52,7 @@ variable "tags" {
   type = map(string)
   default = {
     environment : "dev",
-    test  : "HOL"
+    test : "HOL"
   }
 }
 

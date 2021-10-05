@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~>2.0"
     }
   }
@@ -27,8 +27,8 @@ resource "azurerm_postgresql_server" "lab-deploy" {
   geo_redundant_backup_enabled = false
   auto_grow_enabled            = false
 
-  ssl_enforcement_enabled          = var.ssl_enforcement_enabled
-  tags = var.tags
+  ssl_enforcement_enabled = var.ssl_enforcement_enabled
+  tags                    = var.tags
 
 }
 
