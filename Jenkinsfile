@@ -37,8 +37,11 @@ pipeline {
         stage('terraform plan') {
             steps{
                 withCredentials([azureServicePrincipal('azure_id')]) {
+                    sh  '''
+                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+                    '''
                     echo 'validating'
-                    sh ('terraform plan -var=client_id=$AZURE_CLIENT_ID -var=client_secret=$AZURE_CLIENT_SECRET')
+                    sh ('terraform plan')
                 }
             }
         }

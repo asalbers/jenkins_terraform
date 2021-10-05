@@ -1,5 +1,3 @@
-variable "client_id" {}
-variable "client_secret" {}
 variable "administrator_login" {
   description = "(Required) The Administrator Login for the PostgreSQL Server."
   default     = "pgadminacct"
