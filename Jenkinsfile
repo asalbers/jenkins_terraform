@@ -37,14 +37,8 @@ pipeline {
         stage('terraform plan') {
             steps{
                 withCredentials([azureServicePrincipal('azure_id')]) {
-                    echo 'Setting credentials'
-                    sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
-                    sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
                     echo 'validating'
-                    sh (
-                        returnStdout: true,
-                        script: "terraform plan"
-                    )
+                    sh ('terraform plan -var=client_id=$AZURE_CLIENT_ID -var=client_secret=$AZURE_CLIENT_SECRET')
                 }
             }
         }
