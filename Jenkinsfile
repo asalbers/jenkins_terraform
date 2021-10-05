@@ -6,15 +6,14 @@ pipeline {
                 checkout scm
             }
         }
-        stage('az login'){
-            steps{
-                withCredentials([azureServicePrincipal('azure_id')]) {
-                    sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
-                    sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
-                    sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
-                }
-            }
-        }
+        // stage('az login'){
+        //     steps{
+        //         withCredentials([azureServicePrincipal('azure_id')]) {
+        //             sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
+        //             sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
+        //         }
+        //     }
+        // }
         stage('terraform init') {
             steps{
                 echo 'validating'
@@ -37,11 +36,16 @@ pipeline {
         }
         stage('terraform plan') {
             steps{
-                echo 'validating'
-                sh (
-                    returnStdout: true,
-                    script: "terraform plan"
-                )
+                withCredentials([azureServicePrincipal('azure_id')]) {
+                    echo 'Setting credentials'
+                    sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
+                    sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
+                    echo 'validating'
+                    sh (
+                        returnStdout: true,
+                        script: "terraform plan"
+                    )
+                }
             }
         }
     }
