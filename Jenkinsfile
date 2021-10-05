@@ -6,6 +6,16 @@ pipeline {
                 checkout scm
             }
         }
+        stage('terraform init') {
+            steps{
+                echo 'validating'
+                sh (
+                    returnStdout: true,
+                    script: "terraform init"
+                )
+            }
+
+        }
         stage('terraform validate') {
             steps{
                 echo 'validating'
