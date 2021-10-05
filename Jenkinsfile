@@ -10,6 +10,8 @@ pipeline {
             steps{
                 withCredentials([azureServicePrincipal('azure_id')]) {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+                    sh 'export TF_VAR_client_id=$AZURE_CLIENT_ID'
+                    sh 'export TF_VAR_client_secret=$AZURE_CLIENT_SECRET'
                 }
             }
         }
