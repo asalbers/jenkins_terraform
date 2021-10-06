@@ -64,7 +64,6 @@ pipeline {
             }
         }
         stage('Destroy'){
-        stage('terraform deploy'){
                 steps{
                 withCredentials([azureServicePrincipal('azure_id')]) {
                     sh  '''
