@@ -8,13 +8,13 @@ pipeline {
         }
         stage('terraform format checking'){
             steps{
-                echo ''
+                echo 'format check'
                 sh ('terraform fmt -check')
             }
         }
         stage('terraform init') {
             steps{
-                echo 'validating'
+                echo 'init'
                 sh (
                     returnStdout: true,
                     script: "terraform init"
